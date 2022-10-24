@@ -1,7 +1,13 @@
 import { Container, Stack, Button } from "react-bootstrap";
 import BudgetCard from "./components/BudgetCard";
+import { useBudgetsContext } from "./context/BudgetsContextProvider";
+
 
 function App() {
+
+  const {dummyValue} = useBudgetsContext()
+  console.log(dummyValue);
+
   return (
     <Container className="my-4">
       <Stack direction="horizontal" gap="2" className="mb-4">
