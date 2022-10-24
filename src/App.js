@@ -1,13 +1,12 @@
 import { Container, Stack, Button } from "react-bootstrap";
 import AddBudgetModal from "./components/AddBudgetModal";
 import BudgetCard from "./components/BudgetCard";
-import { useBudgetsContext } from "./context/BudgetsContextProvider";
+// import { useBudgetsContext } from "./context/BudgetsContextProvider";
 
 
 function App() {
 
-  const {dummyValue} = useBudgetsContext()
-  console.log(dummyValue);
+
 
   return (
     <>

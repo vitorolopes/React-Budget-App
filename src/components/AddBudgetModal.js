@@ -1,9 +1,21 @@
-import React from 'react'
-import { Button, Form, Modal } from 'react-bootstrap'
+import React, {useRef} from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
+import { useBudgetsContext } from '../context/BudgetsContextProvider';
 
 const AddBudgetModal = ( {show, handleClose} ) => {
 
-  const handleSubmit = (e) => {  }
+  const nameRef = useRef()
+  const maxRef = useRef()
+
+  const {addBudget} = useBudgetsContext()
+
+  const handleSubmit = (e) => {  
+    e.preventDefault()
+    addBudget(
+      nameRef.current.value, // the name
+      parseFloat(maxRef.current.value) // the max
+    )
+  }
  
   return (
     <Modal show={show} onHide={handleClose}>
@@ -18,12 +30,12 @@ const AddBudgetModal = ( {show, handleClose} ) => {
 
             <Form.Group className='mb-3' controlId='name'>
               <Form.Label>Name</Form.Label>
-              <Form.Control type="text" required/>
+              <Form.Control type="text" required ref={nameRef}/>
             </Form.Group>
 
             <Form.Group className='mb-3' controlId='max'>
               <Form.Label>Maximun Spending</Form.Label>
-              <Form.Control type="number" required min={0} step={1}/>
+              <Form.Control type="number" required min={0} step={1} ref={maxRef} />
             </Form.Group>
 
             <div className='d-flex justify-content-end'>

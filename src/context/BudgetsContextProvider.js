@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import useLocalStorage from "../hooks/useLocalStorage";
 
@@ -6,19 +6,26 @@ const BudgetsContext = createContext()
 
 export const BudgetsContextProvider = ({children}) => {
 
-  const dummyValue = "Dummy Value"
+
 
   // A budget object is going to look like this
   // {id: , name: , max: }
   // An expense object is going to look like this
   // {id: , budgetId: , amount: , description: }
   
-  console.log(uuidv4())
+ 
   
   const [budgets, setBudgets] = useLocalStorage("budgets", [])
   const [expenses, setExpenses] = useLocalStorage("expenses",[])
   
-  // const addBudget = () => {  }
+  const addBudget = (name,max) => { 
+    setBudgets(prevBudgets => {
+      if(prevBudgets.find(budget => budget.name === name)){
+        return prevBudgets
+      }
+      return [...prevBudgets, {id: uuidv4(), name: name, max: max}]
+    })
+   }
   // const addExpense = () => {  }
   // const deleteBudget = () => {  }
   // const deleteExpense = () => {  }
@@ -27,7 +34,7 @@ export const BudgetsContextProvider = ({children}) => {
   return(
       <BudgetsContext.Provider
         value={{
-          dummyValue
+          addBudget
         }}
       >
         {children}
