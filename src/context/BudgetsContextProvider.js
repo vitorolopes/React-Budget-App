@@ -6,14 +6,10 @@ const BudgetsContext = createContext()
 
 export const BudgetsContextProvider = ({children}) => {
 
-
-
   // A budget object is going to look like this
   // {id: , name: , max: }
   // An expense object is going to look like this
   // {id: , budgetId: , amount: , description: }
-  
- 
   
   const [budgets, setBudgets] = useLocalStorage("budgets", [])
   const [expenses, setExpenses] = useLocalStorage("expenses",[])
@@ -26,6 +22,11 @@ export const BudgetsContextProvider = ({children}) => {
       return [...prevBudgets, {id: uuidv4(), name: name, max: max}]
     })
    }
+
+   const getBudgetExpenses = (budgetId) => { 
+     console.log(expenses.filter(expense => expense.budgetId === budgetId))
+     return expenses.filter(expense => expense.budgetId === budgetId)
+   }
   // const addExpense = () => {  }
   // const deleteBudget = () => {  }
   // const deleteExpense = () => {  }
@@ -34,7 +35,9 @@ export const BudgetsContextProvider = ({children}) => {
   return(
       <BudgetsContext.Provider
         value={{
-          addBudget
+          addBudget,
+          budgets,
+          getBudgetExpenses
         }}
       >
         {children}

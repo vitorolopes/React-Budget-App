@@ -15,6 +15,7 @@ const AddBudgetModal = ( {show, handleClose} ) => {
       nameRef.current.value, // the name
       parseFloat(maxRef.current.value) // the max
     )
+    handleClose()
   }
  
   return (

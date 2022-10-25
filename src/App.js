@@ -1,19 +1,28 @@
+import React, { useState } from 'react'
 import { Container, Stack, Button } from "react-bootstrap";
 import AddBudgetModal from "./components/AddBudgetModal";
 import BudgetCard from "./components/BudgetCard";
-// import { useBudgetsContext } from "./context/BudgetsContextProvider";
+import { useBudgetsContext } from "./context/BudgetsContextProvider";
 
 
 function App() {
 
+  const [showAddBudgetModal, setShowAddBudgetModal] = useState(false)
 
+  const {budgets, getBudgetExpenses} = useBudgetsContext();
 
   return (
     <>
       <Container className="my-4">
         <Stack direction="horizontal" gap="2" className="mb-4">
           <h1 className="me-auto">Budgets</h1>
-          <Button variant="primary">Add a Budget</Button>
+
+          <Button variant="primary"
+                  onClick={()=> setShowAddBudgetModal(true)}
+          >
+              Add a Budget
+          </Button>
+
           <Button variant="outline-primary">Add Expense</Button>
         </Stack>
 
@@ -23,20 +32,32 @@ function App() {
           gap: "1rem",
           alignItems: "flex-start"
         }}>
-          <BudgetCard
-            name="Entertainment"
-            amount={600}
-            max={1000}
-            gray
-          >
+          { budgets.map(budget=> {
+              console.log(budget)
+              const amount = getBudgetExpenses(budget.id)
+                                  .reduce(
+                                    (total, expense) => {
+                                      return  total + expense.amount
+                                    }
+                                    ,0)
+              console.log(amount);
 
-          </BudgetCard>
+              return (
+                <BudgetCard
+                  key={budget.id}
+                  name={budget.name}
+                  amount={amount}
+                  max={budget.max}
+                  // gray
+                />
+              )
+          })}
 
         </div>
       
       </Container>
 
-      <AddBudgetModal show={true} handleClose={() => console.log("test close")}/>
+      <AddBudgetModal show={showAddBudgetModal} handleClose={() => setShowAddBudgetModal(false)}/>
     </>
   );
 }
