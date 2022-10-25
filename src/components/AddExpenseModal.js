@@ -46,7 +46,7 @@ const AddExpenseModal = ({show, handleClose, defaultBudgetId}) => {
               ref={budgetIdRef}
               defaultValue={defaultBudgetId}
             >
-              <option id={UNCATEGORIZED_BUDGET_ID}>UNCATEGORIZED</option>
+              <option id={UNCATEGORIZED_BUDGET_ID}>Uncategorized</option>
               {budgets.map(budget=>(
                 <option key={budget.id} value={budget.id}>
                   {budget.name}

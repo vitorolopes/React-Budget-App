@@ -3,6 +3,7 @@ import { Container, Stack, Button } from "react-bootstrap";
 import AddBudgetModal from "./components/AddBudgetModal";
 import AddExpenseModal from './components/AddExpenseModal';
 import BudgetCard from "./components/BudgetCard";
+import UncategorizedBudgetCard from './components/UncategorizedBudgetCard';
 import { useBudgetsContext } from "./context/BudgetsContextProvider";
 
 
@@ -50,7 +51,7 @@ function App() {
           alignItems: "flex-start"
         }}>
           { budgets.map(budget=> {
-              console.log(budget)
+             // console.log(budget)
               const amount = getBudgetExpenses(budget.id)
                                   .reduce(
                                     (total, expense) => {
@@ -69,6 +70,8 @@ function App() {
                 />
               )
           })}
+
+          <UncategorizedBudgetCard onAddExpenseClick={openAddExpenseModal}/>
 
         </div>
       

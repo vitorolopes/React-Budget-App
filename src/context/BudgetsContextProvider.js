@@ -26,7 +26,8 @@ export const BudgetsContextProvider = ({children}) => {
    }
 
    const getBudgetExpenses = (budgetId) => { 
-     console.log(expenses.filter(expense => expense.budgetId === budgetId))
+    console.log(budgetId)
+    console.log(expenses.filter(expense => expense.budgetId === budgetId));
      return expenses.filter(expense => expense.budgetId === budgetId)
    }
 
