@@ -9,6 +9,7 @@ import { useBudgetsContext } from "./context/BudgetsContextProvider";
 function App() {
 
   const [showAddBudgetModal, setShowAddBudgetModal] = useState(false)
+  const [showAddExpenseModal, setShowAddExpenseModal] = useState(false)
 
   const {budgets, getBudgetExpenses} = useBudgetsContext();
 
@@ -60,7 +61,7 @@ function App() {
 
       <AddBudgetModal show={showAddBudgetModal} handleClose={() => setShowAddBudgetModal(false)}/>
 
-      <AddExpenseModal show={true} handleClose={()=> console.log("close test")}/>
+      <AddExpenseModal show={showAddExpenseModal} handleClose={()=> console.log("close test")}/>
     </>
   );
 }
