@@ -4,6 +4,8 @@ import useLocalStorage from "../hooks/useLocalStorage";
 
 const BudgetsContext = createContext()
 
+export const UNCATEGORIZED_BUDGET_ID = "Uncategorized"
+
 export const BudgetsContextProvider = ({children}) => {
 
   // A budget object is going to look like this

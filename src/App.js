@@ -10,11 +10,17 @@ function App() {
 
   const [showAddBudgetModal, setShowAddBudgetModal] = useState(false)
   const [showAddExpenseModal, setShowAddExpenseModal] = useState(false)
+  // When I open the Add Expense Modal from the Add Expense Button on the top right corner
+  // I want the default option for the budget select to be Uncategorized
+  // When I open the Add Expense Modal from the a Budget Card
+  // I want the default option for the budget select to be that budget
+  const [addExpenseModalBudgetId, setAddExpenseModalBudgetId] = useState()
 
   const {budgets, getBudgetExpenses} = useBudgetsContext();
 
-  const openAddExpenseModal = () => { 
+  const openAddExpenseModal = (budgetId) => { 
     setShowAddExpenseModal(true)
+    setAddExpenseModalBudgetId(budgetId)
   }
 
   return (
@@ -59,7 +65,7 @@ function App() {
                   name={budget.name}
                   amount={amount}
                   max={budget.max}
-                  onAddExpenseClick={openAddExpenseModal}
+                  onAddExpenseClick={()=>openAddExpenseModal(budget.id)}
                 />
               )
           })}
@@ -71,7 +77,10 @@ function App() {
       <AddBudgetModal show={showAddBudgetModal}
                       handleClose={() => setShowAddBudgetModal(false)}
       />
-      <AddExpenseModal show={showAddExpenseModal} handleClose={()=> setShowAddExpenseModal(false)}/>
+      <AddExpenseModal show={showAddExpenseModal} 
+                       handleClose={()=> setShowAddExpenseModal(false)}
+                       defaultBudgetId={addExpenseModalBudgetId}                 
+      />
     </>
   );
 }
