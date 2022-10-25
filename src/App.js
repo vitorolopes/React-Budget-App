@@ -13,6 +13,10 @@ function App() {
 
   const {budgets, getBudgetExpenses} = useBudgetsContext();
 
+  const openAddExpenseModal = () => { 
+    setShowAddExpenseModal(true)
+  }
+
   return (
     <>
       <Container className="my-4">
@@ -25,7 +29,12 @@ function App() {
               Add a Budget
           </Button>
 
-          <Button variant="outline-primary">Add Expense</Button>
+          <Button variant="outline-primary"
+                   onClick={()=> setShowAddExpenseModal(true)}   
+          >
+            Add Expense
+          </Button>
+
         </Stack>
 
         <div style={{
@@ -60,8 +69,7 @@ function App() {
       </Container>
 
       <AddBudgetModal show={showAddBudgetModal} handleClose={() => setShowAddBudgetModal(false)}/>
-
-      <AddExpenseModal show={showAddExpenseModal} handleClose={()=> console.log("close test")}/>
+      <AddExpenseModal show={showAddExpenseModal} handleClose={()=> setShowAddExpenseModal(false)}/>
     </>
   );
 }
