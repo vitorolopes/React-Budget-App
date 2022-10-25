@@ -30,7 +30,7 @@ function App() {
           </Button>
 
           <Button variant="outline-primary"
-                   onClick={()=> setShowAddExpenseModal(true)}   
+                   onClick={openAddExpenseModal}   
           >
             Add Expense
           </Button>
@@ -59,7 +59,7 @@ function App() {
                   name={budget.name}
                   amount={amount}
                   max={budget.max}
-                  // gray
+                  onAddExpenseClick={openAddExpenseModal}
                 />
               )
           })}
@@ -68,7 +68,9 @@ function App() {
       
       </Container>
 
-      <AddBudgetModal show={showAddBudgetModal} handleClose={() => setShowAddBudgetModal(false)}/>
+      <AddBudgetModal show={showAddBudgetModal}
+                      handleClose={() => setShowAddBudgetModal(false)}
+      />
       <AddExpenseModal show={showAddExpenseModal} handleClose={()=> setShowAddExpenseModal(false)}/>
     </>
   );
