@@ -47,7 +47,8 @@ export const BudgetsContextProvider = ({children}) => {
           addBudget,
           budgets,
           getBudgetExpenses,
-          addExpense
+          addExpense,
+          expenses
         }}
       >
         {children}

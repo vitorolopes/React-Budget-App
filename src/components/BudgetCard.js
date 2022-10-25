@@ -9,7 +9,7 @@ const getProgressBarVariant = (amount,max) => {
   return "danger"
 }
 
-const BudgetCard = ({name,amount, max, gray, onAddExpenseClick}) => {
+const BudgetCard = ({name,amount, max, gray, onAddExpenseClick, hideButtons}) => {
 
   const classNames=[]
 
@@ -18,6 +18,7 @@ const BudgetCard = ({name,amount, max, gray, onAddExpenseClick}) => {
   } else if(gray){
     classNames.push("bg-light")
   }
+  // console.log(hideButtons);
 
   return (
     <Card className={classNames.join(" ")}>
@@ -44,15 +45,22 @@ const BudgetCard = ({name,amount, max, gray, onAddExpenseClick}) => {
                   now={amount}
                 />
         }
+   {/* //!  We do not need the Add Expense or View Expenses buttons for Total Budget*/}
+   {/* console.log(hideButtons) --> true when in <BudgetCard hideButtons> we have this property => !hideButtons = false
+       console.log(hideButtons) --> undefined when in <BudgetCard > we do not have this property => !hideButtons = true  */}
+        { 
+          !hideButtons && <Stack direction='horizontal' gap="2" className='mt-4'>
+                            <Button variant='outline-primary' className='ms-auto'
+                                    onClick={onAddExpenseClick}
+                            >
+                              Add Expense
+                            </Button>
 
-        <Stack direction='horizontal' gap="2" className='mt-4'>
-          <Button variant='outline-primary' className='ms-auto'
-                  onClick={onAddExpenseClick}
-          >
-            Add Expense
-          </Button>
-          <Button variant='outline-secondary'>View Expenses</Button>
-        </Stack>
+                            <Button variant='outline-secondary'>
+                              View Expenses
+                            </Button>
+                        </Stack>
+        }
 
       </Card.Body>
     </Card>
