@@ -42,7 +42,28 @@ export const BudgetsContextProvider = ({children}) => {
       return prevExpenses.filter(expense => expense.id !== id)
   })
     }
-  // const deleteBudget = () => {  }
+  
+    const deleteBudget = (id) => { 
+      setExpenses( prevExpenses => {
+        // I want to take all of the expenses associated with this budget 
+        // I want to delete and move them to uncategorized.         
+                  return prevExpenses.map(expense => {
+        // If this particular expense does not pertain to the budget
+        // we are dealing with (the budget with the id that is passed 
+        // as a parameter in deleteBudget()) then return the expense without
+        // any change. Just don't deal with it
+                      if (expense.budgetId !== id) return expense
+        // otherwise i want to take my entire expense i want to keep everything
+        // exactly the same but i want to change the budget id to that uncategorized budget id
+                      return {...expense, budgetId: UNCATEGORIZED_BUDGET_ID}
+                    })
+                })
+      // and here I delete the budget
+      setBudgets(prevBudgets => {
+          return prevBudgets.filter(budget => budget.id !== id)
+      })
+
+    }
   
 
 
@@ -54,7 +75,8 @@ export const BudgetsContextProvider = ({children}) => {
           getBudgetExpenses,
           addExpense,
           expenses,
-          deleteExpense
+          deleteExpense,
+          deleteBudget
         }}
       >
         {children}

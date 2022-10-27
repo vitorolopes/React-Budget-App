@@ -6,7 +6,7 @@ import { currencyFormatter } from "../utils"
 
 const ViewExpensesModal = ({budgetId, handleClose}) => {
 
-  const {budgets, getBudgetExpenses, deleteExpense} = useBudgetsContext();
+  const {budgets, getBudgetExpenses, deleteExpense, deleteBudget} = useBudgetsContext();
 
   const expenses = getBudgetExpenses(budgetId)
 
@@ -34,10 +34,14 @@ const ViewExpensesModal = ({budgetId, handleClose}) => {
 {/* //! We do not want the Uncategorized budget to have a delete button, so ... */}
             { budgetId !== UNCATEGORIZED_BUDGET_ID &&
                   (  <Button
-                      variant="outline-danger"
+                        variant="outline-danger"
+                        onClick={ ()=>{
+                          deleteBudget(budget.id)
+                          handleClose()
+                        }}
                     >
                       Delete
-                    </Button>)
+                    </Button> )
             }
           </Stack>
         </Modal.Title>
@@ -61,9 +65,7 @@ const ViewExpensesModal = ({budgetId, handleClose}) => {
                  ))}
               </Stack>
 
-            </Modal.Body>
-
-
+      </Modal.Body>
 
     </Modal>
   )
