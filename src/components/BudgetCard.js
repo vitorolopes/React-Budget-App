@@ -9,7 +9,8 @@ const getProgressBarVariant = (amount,max) => {
   return "danger"
 }
 
-const BudgetCard = ({name,amount, max, gray, onAddExpenseClick, hideButtons}) => {
+const BudgetCard = ({name,amount, max, gray, onAddExpenseClick,
+                     hideButtons, onViewExpensesClick}) => {
 
   const classNames=[]
 
@@ -56,7 +57,9 @@ const BudgetCard = ({name,amount, max, gray, onAddExpenseClick, hideButtons}) =>
                               Add Expense
                             </Button>
 
-                            <Button variant='outline-secondary'>
+                            <Button variant='outline-secondary'
+                                    onClick={onViewExpensesClick}
+                            >
                               View Expenses
                             </Button>
                         </Stack>

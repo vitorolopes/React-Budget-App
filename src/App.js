@@ -6,7 +6,7 @@ import BudgetCard from "./components/BudgetCard";
 import TotalBudgetCard from './components/TotalBudgetCard';
 import UncategorizedBudgetCard from './components/UncategorizedBudgetCard';
 import ViewExpensesModal from './components/ViewExpensesModal';
-import { useBudgetsContext } from "./context/BudgetsContextProvider";
+import { UNCATEGORIZED_BUDGET_ID, useBudgetsContext } from "./context/BudgetsContextProvider";
 
 
 function App() {
@@ -18,6 +18,8 @@ function App() {
   // When I open the Add Expense Modal from the a Budget Card
   // I want the default option for the budget select to be that budget
   const [addExpenseModalBudgetId, setAddExpenseModalBudgetId] = useState()
+
+  const [viewExpensesModalBudgetId, setViewExpensesModalBudgetId] = useState()
 
   const {budgets, getBudgetExpenses} = useBudgetsContext();
 
@@ -69,11 +71,19 @@ function App() {
                   amount={amount}
                   max={budget.max}
                   onAddExpenseClick={()=>openAddExpenseModal(budget.id)}
+
+                  onViewExpensesClick={()=>setViewExpensesModalBudgetId(budget.id)}
+
                 />
+
               )
           })}
 
-          <UncategorizedBudgetCard onAddExpenseClick={openAddExpenseModal}/>
+          <UncategorizedBudgetCard onAddExpenseClick={openAddExpenseModal}
+
+                                   onViewExpensesClick={()=>setViewExpensesModalBudgetId(UNCATEGORIZED_BUDGET_ID)}
+          
+          />
 
           <TotalBudgetCard/>
         </div>
@@ -88,8 +98,9 @@ function App() {
                        defaultBudgetId={addExpenseModalBudgetId}                 
       />
       <ViewExpensesModal 
-          budgetId={"tempFakeId"}
-          handleClose={()=>console.log("close test")}
+          budgetId={viewExpensesModalBudgetId}
+          //! here we set up the state variable viewExpensesModalBudgetId to its initial value(undefined)
+          handleClose={()=>setViewExpensesModalBudgetId()}
       />
 
     </>
