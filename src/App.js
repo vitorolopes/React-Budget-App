@@ -5,6 +5,7 @@ import AddExpenseModal from './components/AddExpenseModal';
 import BudgetCard from "./components/BudgetCard";
 import TotalBudgetCard from './components/TotalBudgetCard';
 import UncategorizedBudgetCard from './components/UncategorizedBudgetCard';
+import ViewExpensesModal from './components/ViewExpensesModal';
 import { useBudgetsContext } from "./context/BudgetsContextProvider";
 
 
@@ -86,6 +87,11 @@ function App() {
                        handleClose={()=> setShowAddExpenseModal(false)}
                        defaultBudgetId={addExpenseModalBudgetId}                 
       />
+      <ViewExpensesModal 
+          budgetId={"tempFakeId"}
+          handleClose={()=>console.log("close test")}
+      />
+
     </>
   );
 }
