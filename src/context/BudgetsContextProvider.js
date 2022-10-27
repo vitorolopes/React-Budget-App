@@ -36,9 +36,14 @@ export const BudgetsContextProvider = ({children}) => {
         return [...prevExpenses, {id:uuidv4(), description, amount, budgetId}]
       })
    }
-
+  
+   const deleteExpense = (id) => { 
+    setExpenses(prevExpenses => {
+      return prevExpenses.filter(expense => expense.id !== id)
+  })
+    }
   // const deleteBudget = () => {  }
-  // const deleteExpense = () => {  }
+  
 
 
   return(
@@ -48,7 +53,8 @@ export const BudgetsContextProvider = ({children}) => {
           budgets,
           getBudgetExpenses,
           addExpense,
-          expenses
+          expenses,
+          deleteExpense
         }}
       >
         {children}

@@ -1,11 +1,14 @@
 import React from 'react';
 import { Modal, Stack, Button } from 'react-bootstrap';
 import { UNCATEGORIZED_BUDGET_ID, useBudgetsContext } from '../context/BudgetsContextProvider';
+import { currencyFormatter } from "../utils"
 
 
 const ViewExpensesModal = ({budgetId, handleClose}) => {
 
-  const {budgets} = useBudgetsContext();
+  const {budgets, getBudgetExpenses, deleteExpense} = useBudgetsContext();
+
+  const expenses = getBudgetExpenses(budgetId)
 
   const budget = 
       budgetId === UNCATEGORIZED_BUDGET_ID
@@ -40,6 +43,27 @@ const ViewExpensesModal = ({budgetId, handleClose}) => {
         </Modal.Title>
 
       </Modal.Header>
+
+      <Modal.Body>
+{/* //! HERE 1b imported currencyFormatter from utils*/}
+              <Stack direction="vertical" gap="3">
+                 {expenses.map(expense => (
+                    <Stack direction="horizontal" gap="2" key={expense.id}>
+                        <div className='me-auto fs-4'> {expense.description}</div>
+                        <div className='fs-5'>{currencyFormatter.format(expense.amount)}</div>
+                        <Button size="sm" variant="outline-danger"
+                                onClick={() => deleteExpense(expense.id)}
+                        > 
+                            &times; 
+                            {/* //! &times; gives us a cross */}
+                        </Button>
+                    </Stack>
+                 ))}
+              </Stack>
+
+            </Modal.Body>
+
+
 
     </Modal>
   )
